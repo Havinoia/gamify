@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --font-heading: 'Press Start 2P', cursive;
+    --font-mono: 'VT323', monospace;
+    
+    --color-pixel-bg: #070b13;
+    --color-pixel-matrix: #00ff41;
+    --color-pixel-pink: #ff00ff;
+    --color-pixel-blue: #00f3ff;
+}
+
+@layer base {
+    body {
+        @apply bg-pixel-bg text-slate-200 font-mono selection:bg-pixel-matrix/30;
+        background-color: #070b13;
+        background-image: 
+            linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+            linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+        background-size: 100% 4px, 3px 100%;
+        min-height: 100vh;
+        image-rendering: pixelated;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading uppercase tracking-tighter;
+    }
+}
+
+@layer components {
+    .pixel-card {
+        @apply bg-[#1a1f2e] border-[4px] border-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-200;
+    }
+    
+    .pixel-card-primary {
+        @apply border-pixel-matrix shadow-[8px_8px_0px_0px_rgba(0,255,65,0.2)];
+    }
+
+    .pixel-card-secondary {
+        @apply border-pixel-pink shadow-[8px_8px_0px_0px_rgba(255,0,255,0.2)];
+    }
+
+    .pixel-btn {
+        @apply px-6 py-3 font-heading text-[10px] uppercase border-[3px] border-white bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all;
+    }
+
+    .pixel-btn-matrix {
+        @apply bg-pixel-matrix border-pixel-matrix text-black shadow-[4px_4px_0px_0px_#008f11];
+    }
+
+    .nav-link {
+        @apply flex items-center px-4 py-3 font-heading text-[8px] transition-all hover:bg-white/10 hover:text-pixel-matrix;
+    }
+
+    .nav-link.active {
+        @apply text-pixel-matrix border-l-[6px] border-pixel-matrix bg-pixel-matrix/10;
+    }
+}
+
+/* Custom Scrollbar (Pixel Style) */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    @apply bg-[#0f172a];
+}
+::-webkit-scrollbar-thumb {
+    @apply bg-pixel-matrix border-4 border-[#0f172a];
+}

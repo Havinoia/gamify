@@ -1,102 +1,58 @@
-# gamify - A gamification platform to implement any serious game mechanic
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-[![Testing with MySQL](https://github.com/pacoorozco/gamify-laravel/actions/workflows/run-tests.yml/badge.svg)](https://github.com/pacoorozco/gamify-laravel/actions/workflows/run-tests.yml)
-[![codecov](https://codecov.io/gh/pacoorozco/gamify-laravel/branch/main/graph/badge.svg?token=ugLXCazFWC)](https://codecov.io/gh/pacoorozco/gamify-laravel)
-[![License](https://img.shields.io/github/license/pacoorozco/gamify-laravel.svg)](LICENSE)
-[![Laravel Version](https://img.shields.io/badge/Laravel-10.x-orange.svg)](https://laravel.com/docs/10.x)
-[![GitHub release](https://img.shields.io/github/release/pacoorozco/gamify-laravel.svg?style=flat-square)](https://github.com/pacoorozco/gamify-laravel/releases)
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Presentation
+## About Laravel
 
-**Game of Work**, _aka GoW!_, was a gamification platform created by **Emilio Ampudia** (eampudia _at_ gmail.com) and **Paco Orozco** (paco _at_ pacoorozco.info). 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-We wanted to teach, learn and share some fun with our colleagues, so we created a game based on questions about our organization (process, services, teams...). This was the birth of **gamify**, a platform implementing a levels & badge game at [UPCnet](https://www.upcnet.es).
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-As much as possible, I've tried to keep a clean code to work everywhere out of the box. You are not obliged to use my tools and you are free to change the code in order to use it at your own feeling.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Disclaimer - It's ready for production, but no doc
+## Learning Laravel
 
-> It's fully working and you can play with it, but it lacks of some documentation. I'm working in order to improve it, in my personal free time, so be patient or contact me in order to give me your help.
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## Changelog
+In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-See [CHANGELOG](CHANGELOG.md) file in order to know what changes are implemented in every version.
+You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
-## How to run gamify
+## Agentic Development
 
-[Laravel Sail](https://laravel.com/docs/10.x/sail) is a light-weight command-line interface for interacting with
-Laravel's default Docker development environment. This will create several containers to implement the application needs. An
-application server and a database server.
+Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
-Prior to this installation, you **need to have installed** this software:
+```bash
+composer require laravel/boost --dev
 
-* [Docker](https://www.docker.com/)
+php artisan boost:install
+```
 
-1. Clone the repository locally
-
-    ```
-    git clone https://github.com/pacoorozco/gamify-laravel.git gamify
-    cd gamify
-    ```
-
-2. Copy [`.env.example`](.env.example) to `.env`.
-
-   > **NOTE**: You don't need to touch anything from this file. It works with default settings.
-
-3. Install PHP dependencies with:
-
-   > **NOTE**: You don't need to install neither _PHP_ nor _Composer_, we are going to use
-   a [Composer image](https://hub.docker.com/_/composer/) instead.
-
-    ```
-    docker run --rm \                  
-    -u "$(id -u):$(id -g)" \
-    -v $(pwd):/var/www/html \
-    -w /var/www/html \
-    laravelsail/php80-composer:latest \
-    composer install --ignore-platform-reqs
-    ```
-
-4. Start all containers with the `sail` command.
-
-    ```
-    ./vendor/bin/sail up -d
-    ```
-
-5. Seed database in order to play with some data
-
-    ```
-    php artisan key:generate 
-    php artisan migrate --seed
-    ```
-
-   **If you are using Sail, you should execute those commands using Sail**:
-
-    ```
-   # Running Artisan commands within Laravel Sail...
-   sail artisan key:generate 
-   sail artisan migrate --seed
-    ```
-
-6. Point your browser to `http://localhost`. Enjoy!
-
-   > **NOTE**: Default credentials are `admin@domain.local/admin` or `player@domain.local/player`
-
-## Reporting issues
-
-If you have issues with **gamify**, you can report them with the [GitHub issues module](https://github.com/pacoorozco/gamify-laravel/issues).
+Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
 ## Contributing
 
-Please see [CONTRIBUTE](CONTRIBUTE.md) for details.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-**gamify** is released as free software under [GNU GPL v3.0 or later](https://spdx.org/licenses/GPL-3.0-or-later.html)
-
-## Authors
-
-**gamify** was originally developed by Emilio Ampudia and [Paco Orozco](https://pacoorozco.info) as part of a game in UPCnet. Later, the [original version](https://github.com/pacoorozco/gamify) was migrated to Laravel.
-
-See [contributor list](https://github.com/pacoorozco/gamify-laravel/graphs/contributors) for a complete list of contributors.
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
