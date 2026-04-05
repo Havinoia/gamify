@@ -5,23 +5,23 @@
     --font-heading: 'Press Start 2P', cursive;
     --font-mono: 'VT323', monospace;
     
-    --color-pixel-bg: #070b13; /* Back to Dark Arcade */
-    --color-pixel-matrix: #39ff14; /* Bright Neon Green */
-    --color-pixel-pink: #ff00ff;   /* Hot Pink */
-    --color-pixel-blue: #00ffff;   /* Electric Cyan */
-    --color-pixel-yellow: #ffff00; /* Sunny Yellow */
-    --color-pixel-text: #ffffff;   /* High Contrast White */
+    --color-pixel-bg: #0F172A;     /* Deeper Slate Blue */
+    --color-pixel-matrix: #4ADE80; /* Pleasant Minty Neon */
+    --color-pixel-pink: #F472B6;   /* Soft Rose Neon */
+    --color-pixel-blue: #38BDF8;   /* Sky Blue Neon */
+    --color-pixel-yellow: #FDE047; /* Muted Gold Yellow */
+    --color-pixel-text: #F8FAFC;   /* Soft High-Contrast White */
 }
 
 @layer base {
     body {
         @apply bg-pixel-bg text-pixel-text font-mono selection:bg-pixel-matrix;
-        background-color: #070b13;
+        background-color: #0F172A;
         background-image: 
-            radial-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px);
-        background-size: 20px 20px;
+            radial-gradient(rgba(74, 222, 128, 0.03) 1px, transparent 1px);
+        background-size: 32px 32px;
         min-height: 100vh;
-        image-rendering: pixelated;
+        image-rendering: auto;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -31,11 +31,22 @@
 
 @layer components {
     .pixel-card {
-        @apply bg-[#1a1f2e] border-[4px] border-pixel-matrix p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-200;
+        @apply bg-[#111827] border-[4px] border-pixel-matrix/40 p-6 shadow-[10px_10px_0px_0px_#000] hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,0.9)] transition-all duration-300;
     }
+
+    .pixel-card-header {
+        @apply flex items-center justify-between mb-8 border-b-[4px] border-black pb-4 -mx-6 -mt-6 p-6 shadow-[inset_0_-4px_0_0_rgba(0,0,0,0.2)];
+    }
+
+    .pixel-card-header-matrix { @apply pixel-card-header bg-pixel-matrix text-black; }
+    .pixel-card-header-blue { @apply pixel-card-header bg-pixel-blue text-black; }
+    .pixel-card-header-pink { @apply pixel-card-header bg-pixel-pink text-black; }
+
+    .pixel-title-dark { @apply text-sm text-black font-heading italic font-black uppercase tracking-widest; }
+    .pixel-title-light { @apply text-sm text-white font-heading italic font-black uppercase tracking-widest drop-shadow-[2px_2px_0_#000]; }
     
     .pixel-card-primary {
-        @apply border-pixel-matrix bg-[#1a1f2e] shadow-[8px_8px_0px_0px_#000];
+        @apply border-[8px] border-black bg-pixel-matrix shadow-[16px_16px_0px_0px_#000] text-black;
     }
 
     .pixel-card-secondary {
@@ -47,7 +58,7 @@
     }
 
     .pixel-btn-matrix {
-        @apply bg-pixel-matrix border-pixel-matrix text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:bg-pixel-blue transition-colors;
+        @apply bg-pixel-matrix border-pixel-matrix text-black shadow-[4px_4px_0px_0px_#000] hover:bg-pixel-blue transition-all active:scale-[0.98];
     }
 
     .nav-link {

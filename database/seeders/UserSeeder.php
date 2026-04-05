@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     {
         // 1. Create a Primary Admin Operative
         User::create([
-            'name' => 'Admin Operative',
+            'name' => 'Admin Test',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
             'level_id' => 1,
@@ -28,15 +28,15 @@ class UserSeeder extends Seeder
 
         // 2. Create a Test Operative
         User::create([
-            'name' => 'Ghost Operative',
-            'email' => 'test@test.com',
+            'name' => 'Havin Test',
+            'email' => 'a@a.com',
             'password' => Hash::make('password'),
             'level_id' => 1,
             'total_points' => 500, // Starts at Level 3
         ]);
 
         // 3. Create Random Operatives for Leaderboard
-        User::factory()->count(25)->create();
+        // User::factory()->count(25)->create();
 
         // 4. Update Level IDs based on Points
         $users = User::all();

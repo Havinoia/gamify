@@ -35,12 +35,12 @@ new class extends Component {
 
 <div class="space-y-6 font-mono" wire:poll.5s>
     <div class="flex items-center justify-between">
-        <span class="text-[8px] font-heading text-pixel-matrix tracking-widest underline italic font-black">XP_PROGRESS_BAR</span>
-        <span class="text-xs font-heading text-pixel-blue tracking-widest">{{ $user->total_points }} / {{ $nextLevel->min_points ?? 'MAX' }} XP</span>
+        <span class="text-[8px] font-heading text-black tracking-widest underline italic font-black">XP_PROGRESS_BAR</span>
+        <span class="text-xs font-heading text-black tracking-widest">{{ $user->total_points }} / {{ $nextLevel->min_points ?? 'MAX' }} XP</span>
     </div>
 
-    <!-- 90s Style Segmented Progress Bar (Dark) -->
-    <div class="h-10 w-full bg-black/40 border-[6px] border-pixel-matrix p-1.5 flex space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+    <!-- 90s Style Segmented Progress Bar (Bright Mode Compatible) -->
+    <div class="h-10 w-full bg-black/10 border-[6px] border-black p-1.5 flex space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.2)]">
         @php 
             $segments = 10; 
             $activeSegmentsCount = $nextLevel ? floor(($progress / 100) * $segments) : $segments; 

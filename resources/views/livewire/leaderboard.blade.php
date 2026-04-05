@@ -24,7 +24,7 @@ new class extends Component {
 
 <div class="space-y-4">
     @foreach($users as $index => $leader)
-        <div class="flex items-center justify-between p-3 border-[4px] border-pixel-matrix bg-[#070b13] hover:bg-pixel-matrix group transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center justify-between p-3 border-[4px] border-pixel-matrix/40 bg-pixel-bg hover:bg-pixel-matrix group transition-all shadow-[4px_4px_0px_0px_#000]">
             <div class="flex items-center">
                 <span class="font-heading text-[10px] {{ $index < 3 ? 'text-pixel-pink' : 'text-slate-500' }} w-8">#{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                 <div class="w-10 h-10 border-[3px] border-pixel-matrix bg-black/40 flex items-center justify-center font-heading text-[10px] text-white group-hover:bg-black group-hover:text-pixel-matrix transition-colors shadow-[2px_2px_0px_0px_#000]">

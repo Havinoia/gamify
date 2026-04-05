@@ -10,7 +10,7 @@
     </head>
     <body class="antialiased overflow-x-hidden font-mono bg-pixel-bg text-pixel-text">
         <!-- Subtle 90s Scanline (Dark) -->
-        <div class="fixed inset-0 z-[9999] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-20"></div>
+        <div class="fixed inset-0 z-[9999] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%)] bg-[length:100%_4px] opacity-10"></div>
 
         <div class="flex min-h-screen border-[8px] border-black">
             <!-- Sidebar (Dark 90s RPG Menu Style) -->
@@ -71,6 +71,16 @@
 
             <!-- Main Content -->
             <main class="flex-1 overflow-x-hidden bg-pixel-bg">
+                <!-- Mobile Header (90s Arcade Style) -->
+                <div class="flex gap-2 items-center justify-between sm:hidden p-4 border-b-[4px] border-black bg-[#0c1120] sticky top-0 z-[6000]">
+                    <div class="flex items-center">
+                        <span class="text-[8px] font-heading text-black bg-pixel-blue px-2 py-1 shadow-[2px_2px_0px_0px_#000]">GAMIFY_SYS</span>
+                    </div>
+                    <div class="flex items-center scale-75 origin-right">
+                        <livewire:header-stats />
+                    </div>
+                </div>
+
                 <!-- Header (Dark 90s Arcade) -->
                 <header class="h-20 flex items-center justify-between px-8 border-b-[8px] border-black bg-[#0c1120] sticky top-0 z-[5000]">
                     <div class="flex items-center">
