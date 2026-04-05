@@ -26,7 +26,7 @@ class GamificationSeeder extends Seeder
         ];
 
         foreach ($levels as $level) {
-            Level::create($level);
+            Level::updateOrCreate(['name' => $level['name']], $level);
         }
 
         // 2. Badges
@@ -39,7 +39,7 @@ class GamificationSeeder extends Seeder
         ];
 
         foreach ($badges as $badge) {
-            Badge::create($badge);
+            Badge::updateOrCreate(['slug' => $badge['slug']], $badge);
         }
 
         // 3. Questions (Mixed & Simple)
@@ -184,20 +184,5 @@ class GamificationSeeder extends Seeder
                 $question->choices()->create($choice);
             }
         }
-
-        // 4. Sample Admin/Player
-        User::create([
-            'name' => 'Admin Gamify',
-            'email' => 'admin@domain.local',
-            'password' => Hash::make('password'),
-            'level_id' => Level::first()?->id,
-        ]);
-
-        User::create([
-            'name' => 'Player One',
-            'email' => 'player@domain.local',
-            'password' => Hash::make('password'),
-            'level_id' => Level::first()?->id,
-        ]);
     }
 }

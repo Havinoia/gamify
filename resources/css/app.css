@@ -5,56 +5,69 @@
     --font-heading: 'Press Start 2P', cursive;
     --font-mono: 'VT323', monospace;
     
-    --color-pixel-bg: #070b13;
-    --color-pixel-matrix: #00ff41;
-    --color-pixel-pink: #ff00ff;
-    --color-pixel-blue: #00f3ff;
+    --color-pixel-bg: #070b13; /* Back to Dark Arcade */
+    --color-pixel-matrix: #39ff14; /* Bright Neon Green */
+    --color-pixel-pink: #ff00ff;   /* Hot Pink */
+    --color-pixel-blue: #00ffff;   /* Electric Cyan */
+    --color-pixel-yellow: #ffff00; /* Sunny Yellow */
+    --color-pixel-text: #ffffff;   /* High Contrast White */
 }
 
 @layer base {
     body {
-        @apply bg-pixel-bg text-slate-200 font-mono selection:bg-pixel-matrix/30;
+        @apply bg-pixel-bg text-pixel-text font-mono selection:bg-pixel-matrix;
         background-color: #070b13;
         background-image: 
-            linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-            linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        background-size: 100% 4px, 3px 100%;
+            radial-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
         min-height: 100vh;
         image-rendering: pixelated;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply font-heading uppercase tracking-tighter;
+        @apply font-heading uppercase tracking-tighter text-pixel-text;
     }
 }
 
 @layer components {
     .pixel-card {
-        @apply bg-[#1a1f2e] border-[4px] border-white p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-200;
+        @apply bg-[#1a1f2e] border-[4px] border-pixel-matrix p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] transition-all duration-200;
     }
     
     .pixel-card-primary {
-        @apply border-pixel-matrix shadow-[8px_8px_0px_0px_rgba(0,255,65,0.2)];
+        @apply border-pixel-matrix bg-[#1a1f2e] shadow-[8px_8px_0px_0px_#000];
     }
 
     .pixel-card-secondary {
-        @apply border-pixel-pink shadow-[8px_8px_0px_0px_rgba(255,0,255,0.2)];
+        @apply border-pixel-pink bg-[#1a1f2e] shadow-[8px_8px_0px_0px_#000];
     }
 
     .pixel-btn {
-        @apply px-6 py-3 font-heading text-[10px] uppercase border-[3px] border-white bg-white text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all;
+        @apply px-6 py-3 font-heading text-[10px] uppercase border-[4px] border-pixel-matrix bg-pixel-matrix text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer;
     }
 
     .pixel-btn-matrix {
-        @apply bg-pixel-matrix border-pixel-matrix text-black shadow-[4px_4px_0px_0px_#008f11];
+        @apply bg-pixel-matrix border-pixel-matrix text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hover:bg-pixel-blue transition-colors;
     }
 
     .nav-link {
-        @apply flex items-center px-4 py-3 font-heading text-[8px] transition-all hover:bg-white/10 hover:text-pixel-matrix;
+        @apply flex items-center px-4 py-3 font-heading text-[8px] text-slate-400 transition-all hover:bg-pixel-matrix hover:text-black;
     }
 
     .nav-link.active {
-        @apply text-pixel-matrix border-l-[6px] border-pixel-matrix bg-pixel-matrix/10;
+        @apply text-black bg-pixel-matrix border-l-[8px] border-pixel-blue;
+    }
+
+    .pixel-dropdown {
+        @apply absolute top-full right-0 mt-6 w-64 bg-[#070b13] border-[6px] border-pixel-blue p-5 z-[999999] shadow-[12px_12px_22px_0px_#000] animate-in slide-in-from-top-4 duration-300;
+    }
+
+    .pixel-modal {
+        @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl bg-[#070b13] border-[8px] border-pixel-blue p-8 z-[1000000] shadow-[24px_24px_60px_0px_#000] animate-in zoom-in duration-300;
+    }
+
+    .pixel-backdrop {
+        @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-[999999] animate-in fade-in duration-300;
     }
 }
 
@@ -63,8 +76,8 @@
     width: 12px;
 }
 ::-webkit-scrollbar-track {
-    @apply bg-[#0f172a];
+    @apply bg-[#070b13] border-l-4 border-white/10;
 }
 ::-webkit-scrollbar-thumb {
-    @apply bg-pixel-matrix border-4 border-[#0f172a];
+    @apply bg-pixel-pink border-4 border-[#070b13];
 }

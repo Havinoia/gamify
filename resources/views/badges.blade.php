@@ -3,45 +3,46 @@
 @section('header', 'STATUS_INVENTORY_MANAGER')
 
 @section('content')
-<div class="space-y-12 animate-in fade-in duration-700 font-mono">
-    <div class="pixel-card-primary p-8 relative overflow-hidden bg-black/40">
-        <div class="absolute top-0 right-0 p-8 opacity-20 animate-float pointer-events-none">
-            <span class="text-8xl">📦</span>
+<div class="space-y-12 animate-in fade-in duration-500 font-mono">
+    <div class="flex items-center justify-between border-b-[6px] border-pixel-matrix pb-6 bg-pixel-matrix -mx-10 -mt-10 px-10 p-8 shadow-[0_6px_0_0_#000]">
+        <div>
+            <h2 class="text-2xl font-heading text-black italic underline font-black">OPERATIVE_INVENTORY</h2>
+            <p class="text-[10px] text-black font-bold uppercase mt-2">TOTAL_COLLECTABLES_SYNCED: {{ count($userBadges) }} / {{ count($badges) }}</p>
         </div>
-        <div class="relative z-10">
-            <h3 class="text-xl font-heading text-white mb-4 underline">MISSION_REWARDS</h3>
-            <p class="text-xs text-slate-400 leading-relaxed uppercase">
-                YOU HAVE COLLECTED <span class="text-pixel-matrix font-bold">{{ count($userBadges) }}</span> / <span class="text-white font-bold">{{ count($badges) }}</span> SYSTEM_BADGES.
-                KEEP COMPLETING MISSIONS TO UNLOCK ULTIMATE TIER ITEMS.
-            </p>
+        <div class="bg-pixel-blue border-[4px] border-black p-4 shadow-[4px_4px_0_0_#000]">
+            <span class="text-[8px] font-heading text-black block mb-1 underline">COMPLETION_RATE</span>
+            <span class="text-xl font-mono text-black font-black">{{ round((count($userBadges) / max(1, count($badges))) * 100) }}%</span>
         </div>
     </div>
 
-    <!-- Inventory Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         @foreach($badges as $badge)
-            @php $isEarned = in_array($badge->id, array_keys($userBadges)) || isset($userBadges[$badge->name]); @endphp
-            <div class="pixel-card p-6 text-center group transition-all duration-300 {{ $isEarned ? 'border-pixel-matrix bg-pixel-matrix/5 shadow-[6px_6px_0px_0px_#008f11]' : 'opacity-20 grayscale pointer-events-none border-white/10 shadow-none' }}">
-                <div class="w-16 h-16 mx-auto mb-6 bg-black/40 border-2 border-white/20 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:border-pixel-matrix transition-all">
-                    {{ $isEarned ? '🏅' : '🔒' }}
+            @php $isOwned = in_array($badge->id, $userBadges); @endphp
+            <div class="pixel-card border-[4px] {{ $isOwned ? 'border-pixel-matrix bg-[#1a1f2e] shadow-[10px_10px_0_0_rgba(0,0,0,0.5)]' : 'border-pixel-matrix/10 bg-pixel-matrix/5 opacity-40 grayscale shadow-none' }} group transition-all relative overflow-hidden">
+                @if($isOwned)
+                    <div class="absolute top-0 right-0 bg-pixel-matrix border-b-[4px] border-l-[4px] border-pixel-matrix px-2 py-1 text-[8px] font-heading text-black font-black">
+                        OWNED
+                    </div>
+                @endif
+
+                <div class="text-center py-6">
+                    <div class="w-20 h-20 mx-auto bg-black/40 border-[4px] {{ $isOwned ? 'border-pixel-matrix shadow-[0_0_15px_rgba(57,255,20,0.3)]' : 'border-pixel-matrix/20' }} flex items-center justify-center text-4xl mb-6 shadow-[4px_4px_0_0_#000] transition-transform group-hover:scale-110">
+                        {{ $isOwned ? '🏅' : '🔒' }}
+                    </div>
+                    <h3 class="text-xs font-heading {{ $isOwned ? 'text-white' : 'text-slate-500' }} mb-2 underline decoration-pixel-blue decoration-2 uppercase">{{ strtoupper($badge->name) }}</h3>
+                    <p class="text-[10px] text-slate-400 font-mono italic leading-tight uppercase">{{ $badge->description }}</p>
                 </div>
-                
-                <h5 class="font-heading text-[8px] text-white line-clamp-1 mb-2">{{ strtoupper($badge->name) }}</h5>
-                <p class="text-[8px] font-mono text-pixel-matrix mb-4 tracking-tighter">{{ $badge->points_required }} PTS</p>
-                
-                <div class="flex justify-center">
-                    @if($isEarned)
-                        <span class="px-3 py-1 border-2 border-pixel-matrix text-pixel-matrix text-[8px] font-heading uppercase">EQUIPPED</span>
-                    @else
-                        <span class="px-3 py-1 border-2 border-white/20 text-slate-500 text-[8px] font-heading uppercase tracking-tighter">LOCKED</span>
-                    @endif
-                </div>
+
+                @if($isOwned)
+                    <div class="mt-4 pt-4 border-t-[3px] border-dashed border-pixel-matrix/20 text-center">
+                        <span class="text-[8px] font-heading text-pixel-blue font-black uppercase tracking-widest italic">Data_Verified_199{{ rand(0,9) }}</span>
+                    </div>
+                @endif
             </div>
         @endforeach
     </div>
-    
     <!-- Footer Logs -->
-    <div class="pixel-card bg-black/20 border-white/10">
+    <div class="pixel-card bg-black/20 border-pixel-matrix/20">
         <h4 class="text-[8px] font-heading text-slate-500 mb-4 tracking-widest underline">SYSTEM_LOGS</h4>
         <div class="space-y-2">
             <p class="text-[10px] text-pixel-matrix/60 font-mono">>> [{{ now()->format('H:i:s') }}] SCANNING_DATABASE... DONE</p>

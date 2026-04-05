@@ -53,48 +53,87 @@ new class extends Component
 };
 ?>
 
-<div class="pixel-card-secondary p-8 font-mono bg-black/40" x-data @quiz-success.window="confetti({
+<div class="pixel-card-secondary p-8 font-mono bg-[#1a1f2e] relative overflow-hidden" x-data @quiz-success.window="confetti({
     particleCount: 150,
     spread: 70,
     origin: { y: 0.6 },
-    colors: ['#00ff41', '#ff00ff', '#00f3ff']
+    colors: ['#ff00ff', '#00ffff', '#ffff00']
 })">
     @if($question)
-        <div class="mb-10 border-b-2 border-dashed border-white/20 pb-4">
-            <span class="text-[8px] font-heading text-pixel-pink uppercase tracking-widest mb-3 block">>> MISSION_OBJECTIVE</span>
-            <h3 class="text-sm font-heading text-white leading-relaxed">{{ $question->content }}</h3>
+        <div class="mb-10 border-b-[6px] border-pixel-matrix/40 pb-4 bg-pixel-yellow -mx-8 -mt-8 p-6 shadow-[inset_0_-4px_0_0_rgba(0,0,0,0.3)]">
+            <span class="text-[8px] font-heading text-black uppercase tracking-widest mb-3 block underline font-black">>> MISSION_OBJECTIVE_v1.0</span>
+            <h3 class="text-sm font-heading text-black leading-relaxed italic drop-shadow-[2px_2px_0_#fff] uppercase">{{ $question->content }}</h3>
         </div>
 
-        @if(!$answered)
-            <div class="grid grid-cols-1 gap-4">
-                @foreach($question->choices as $choice)
-                    <button 
-                        wire:click="submitAnswer({{ $choice->id }})" 
-                        class="pixel-btn text-left hover:bg-pixel-pink hover:text-white group transition-all"
-                    >
-                        <span class="mr-3 opacity-50 group-hover:opacity-100">[*]</span>
-                        {{ $choice->content }}
-                    </button>
-                @endforeach
-            </div>
-        @else
-            <div class="p-6 border-2 {{ $isCorrect ? 'border-pixel-matrix bg-pixel-matrix/10 text-pixel-matrix' : 'border-red-500 bg-red-500/10 text-red-500' }} mb-8 font-heading text-[10px]">
-                <p class="mb-2 underline">
-                    {{ $isCorrect ? 'MISSION_ACCOMPLISHED!' : 'MISSION_FAILED!' }}
-                </p>
-                <p class="text-white text-xs lowercase font-mono">{{ $message }}</p>
-            </div>
+        <!-- Choices Grid -->
+        <div class="grid grid-cols-1 gap-6">
+            @foreach($question->choices as $choice)
+                @php 
+                    $isUserSelection = $answered && $selectedChoice == $choice->id;
+                    $isCorrectAnswer = $answered && $choice->is_correct;
+                    
+                    $bgColor = 'bg-white';
+                    $borderColor = 'border-white';
+                    $textColor = 'text-black';
+                    $shadowColor = 'rgba(0,0,0,0.5)';
+                    $icon = '[*]';
+                    
+                    if ($answered) {
+                        if ($isCorrectAnswer) {
+                            $bgColor = 'bg-pixel-matrix';
+                            $borderColor = 'border-pixel-matrix shadow-[0_0_20px_#39ff14]';
+                            $textColor = 'text-black';
+                            $icon = '✔';
+                        } elseif ($isUserSelection) {
+                            $bgColor = 'bg-red-500';
+                            $borderColor = 'border-white';
+                            $textColor = 'text-white';
+                            $icon = '✘';
+                        } else {
+                            $bgColor = 'bg-black/20';
+                            $borderColor = 'border-white/10';
+                            $textColor = 'text-white/20';
+                            $shadowColor = 'transparent';
+                        }
+                    }
+                @endphp
 
-            <button 
-                wire:click="loadQuestion" 
-                class="pixel-btn-matrix w-full text-center"
-            >
-                NEXT_MISSION >>
-            </button>
+                <button 
+                    @if(!$answered) wire:click="submitAnswer({{ $choice->id }})" @endif
+                    class="px-6 py-4 font-heading text-[10px] uppercase border-[4px] {{ $borderColor }} {{ $bgColor }} {{ $textColor }} shadow-[8px_8px_0px_0px_{{ $shadowColor }}] transition-all cursor-pointer text-left @if(!$answered) hover:-translate-y-1 hover:bg-white/90 @endif group relative overflow-hidden"
+                    {{ $answered ? 'disabled' : '' }}
+                >
+                    <span class="mr-3 font-black {{ $isCorrectAnswer ? 'animate-bounce' : '' }}">{{ $icon }}</span>
+                    {{ strtoupper($choice->content) }}
+                    
+                    @if($answered && $isCorrectAnswer)
+                        <div class="absolute -right-2 -bottom-2 text-4xl opacity-20">👍</div>
+                    @endif
+                </button>
+            @endforeach
+        </div>
+
+        @if($answered)
+            <!-- Feedback Section -->
+            <div class="mt-10 animate-in zoom-in duration-300">
+                <div class="p-6 border-[4px] {{ $isCorrect ? 'border-pixel-matrix bg-pixel-matrix text-black shadow-[8px_8px_0px_0px_rgba(57,255,20,0.3)]' : 'border-red-500 bg-red-500 text-white shadow-[8px_8px_0px_0px_rgba(239,68,68,0.3)]' }} font-heading text-[10px]">
+                    <p class="mb-4 underline font-black uppercase italic tracking-widest leading-none">
+                        {{ $isCorrect ? '>> MISSION_ACCOMPLISHED_OK' : '>> MISSION_FAILED_ERROR' }}
+                    </p>
+                    <p class="text-xs lowercase font-mono bg-black/20 p-3 border-2 border-black/10 leading-relaxed">{{ $message }}</p>
+                </div>
+
+                <button 
+                    wire:click="loadQuestion" 
+                    class="pixel-btn-matrix w-full text-center py-5 mt-8 text-[12px] font-black shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer"
+                >
+                    INITIATE_NEXT_MISSION >>
+                </button>
+            </div>
         @endif
     @else
         <div class="text-center py-10 scale-effect">
-            <p class="text-[8px] font-heading text-slate-500 italic animate-pulse">DATABASE_EMPTY...</p>
+            <p class="text-[10px] font-heading text-black italic animate-pulse bg-pixel-yellow border-4 border-dashed border-black p-6">DATABASE_SYNC_ERROR: NO_QUESTIONS_FOUND</p>
         </div>
     @endif
 </div>

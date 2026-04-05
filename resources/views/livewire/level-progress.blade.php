@@ -35,29 +35,29 @@ new class extends Component {
 
 <div class="space-y-6 font-mono" wire:poll.5s>
     <div class="flex items-center justify-between">
-        <span class="text-[8px] font-heading text-pixel-matrix tracking-widest underline italic">XP_PROGRESS_BAR</span>
-        <span class="text-xs font-heading text-white tracking-widest">{{ $user->total_points }} / {{ $nextLevel->min_points ?? 'MAX' }} XP</span>
+        <span class="text-[8px] font-heading text-pixel-matrix tracking-widest underline italic font-black">XP_PROGRESS_BAR</span>
+        <span class="text-xs font-heading text-pixel-blue tracking-widest">{{ $user->total_points }} / {{ $nextLevel->min_points ?? 'MAX' }} XP</span>
     </div>
 
-    <!-- Segmented Progress Bar -->
-    <div class="h-10 w-full bg-black/40 border-[4px] border-white p-1.5 flex space-x-1.5 shadow-[inset_4px_4px_0px_0px_rgba(0,0,0,0.5)]">
+    <!-- 90s Style Segmented Progress Bar (Dark) -->
+    <div class="h-10 w-full bg-black/40 border-[6px] border-pixel-matrix p-1.5 flex space-x-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
         @php 
-            $segments = 12; 
+            $segments = 10; 
             $activeSegmentsCount = $nextLevel ? floor(($progress / 100) * $segments) : $segments; 
         @endphp
         @for($i = 0; $i < $segments; $i++)
-            <div class="flex-1 transition-all duration-700 {{ $i < $activeSegmentsCount ? 'bg-pixel-matrix shadow-[0_0_12px_rgba(0,255,65,0.6)] animate-pulse' : 'bg-white/5' }}"></div>
+            <div class="flex-1 transition-all duration-700 {{ $i < $activeSegmentsCount ? 'bg-pixel-matrix border-[3px] border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]' : 'bg-pixel-matrix/5 border-[3px] border-pixel-matrix/10' }}"></div>
         @endfor
     </div>
 
-    <div class="flex items-center justify-between py-4 border-t-2 border-dashed border-white/10">
+    <div class="flex items-center justify-between py-4 border-t-[4px] border-pixel-matrix bg-pixel-blue/90 -mx-6 px-6 -mb-6 shadow-[inset_0_4px_0_0_rgba(0,0,0,0.3)]">
         <div class="text-left">
-            <p class="text-[8px] text-slate-500 font-heading mb-1">SYSTEM_RANK</p>
-            <p class="text-sm font-heading text-white tracking-widest">{{ strtoupper($user->level->name ?? 'NOVICE') }}</p>
+            <p class="text-[8px] text-black font-heading mb-1 underline">SYSTEM_RANK</p>
+            <p class="text-sm font-heading text-white tracking-widest drop-shadow-[2px_2px_0px_#000]">{{ strtoupper($user->level->name ?? 'NOVICE') }}</p>
         </div>
         <div class="text-right">
-            <p class="text-[8px] text-slate-500 font-heading mb-1">NEXT_OBJECTIVE</p>
-            <p class="text-sm font-heading text-pixel-matrix tracking-widest">{{ strtoupper($nextLevel->name ?? 'MAX_LEVEL') }}</p>
+            <p class="text-[8px] text-black font-heading mb-1 underline">NEXT_UP</p>
+            <p class="text-sm font-heading text-pixel-yellow tracking-widest drop-shadow-[2px_2px_0px_#000]">{{ strtoupper($nextLevel->name ?? 'MAX_LVL') }}</p>
         </div>
     </div>
 </div>

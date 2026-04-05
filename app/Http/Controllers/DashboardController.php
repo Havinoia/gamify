@@ -12,8 +12,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $this->ensureLogin();
-        
         $user = Auth::user()->load('level');
         $badges = Badge::orderBy('points_required', 'asc')->get();
         $userBadges = $user->badges->pluck('id')->toArray();
@@ -29,7 +27,6 @@ class DashboardController extends Controller
 
     public function badges()
     {
-        $this->ensureLogin();
         $user = Auth::user();
         $badges = Badge::orderBy('points_required', 'asc')->get();
         $userBadges = $user->badges->pluck('id', 'name')->toArray();
@@ -39,23 +36,13 @@ class DashboardController extends Controller
 
     public function quizzes()
     {
-        $this->ensureLogin();
         return view('quizzes');
     }
 
     public function leaderboard()
     {
-        $this->ensureLogin();
         $topUsers = User::with('level')->orderBy('total_points', 'desc')->paginate(20);
         return view('leaderboard', compact('topUsers'));
-    }
-
-    private function ensureLogin()
-    {
-        if (!Auth::check()) {
-            $user = User::first();
-            if ($user) Auth::login($user);
-        }
     }
 
     private function getProgressData($user)
