@@ -13,6 +13,69 @@
     --color-pixel-text: #F8FAFC;   /* Soft High-Contrast White */
 }
 
+/* Custom Keyframes for Dynamic UI */
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 0.99; }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+}
+
+@keyframes terminal-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes pixel-drift {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes glitch-sq {
+    0% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+    20% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -2px); }
+    40% { clip-path: inset(50% 0 20% 0); transform: translate(-2px, 2px); }
+    60% { clip-path: inset(10% 0 80% 0); transform: translate(2px, -2px); }
+    80% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 2px); }
+    100% { clip-path: inset(80% 0 0 0); transform: translate(-2px, 2px); }
+}
+
+/* Custom Animation Utilities (Tailwind v4 style) */
+@utility animate-pixel-in {
+    animation: zoom-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility animate-scanline {
+    animation: scanline 8s linear infinite;
+}
+
+@utility animate-flicker {
+    animation: flicker 0.1s infinite;
+}
+
+@utility animate-drift {
+    animation: pixel-drift 4s linear infinite;
+}
+
+@utility pixel-card {
+    @apply bg-[#111827] border-[4px] border-pixel-matrix/40 p-6 shadow-[10px_10px_0px_0px_#000] hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,0.9)] transition-all duration-300;
+}
+
+@utility pixel-card-header {
+    @apply flex items-center justify-between mb-8 border-b-[4px] border-black pb-4 -mx-6 -mt-6 p-6 shadow-[inset_0_-4px_0_0_rgba(0,0,0,0.2)];
+}
+
+@utility pixel-modal {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl bg-[#070b13] border-[8px] border-pixel-blue p-8 z-[1000000] shadow-[24px_24px_60px_0px_#000];
+}
+
+@utility pixel-backdrop {
+    @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-[999999];
+}
+
 @layer base {
     body {
         @apply bg-pixel-bg text-pixel-text font-mono selection:bg-pixel-matrix;
@@ -22,6 +85,7 @@
         background-size: 32px 32px;
         min-height: 100vh;
         image-rendering: auto;
+        overflow-x: hidden;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -30,14 +94,6 @@
 }
 
 @layer components {
-    .pixel-card {
-        @apply bg-[#111827] border-[4px] border-pixel-matrix/40 p-6 shadow-[10px_10px_0px_0px_#000] hover:shadow-[14px_14px_0px_0px_rgba(0,0,0,0.9)] transition-all duration-300;
-    }
-
-    .pixel-card-header {
-        @apply flex items-center justify-between mb-8 border-b-[4px] border-black pb-4 -mx-6 -mt-6 p-6 shadow-[inset_0_-4px_0_0_rgba(0,0,0,0.2)];
-    }
-
     .pixel-card-header-matrix { @apply pixel-card-header bg-pixel-matrix text-black; }
     .pixel-card-header-blue { @apply pixel-card-header bg-pixel-blue text-black; }
     .pixel-card-header-pink { @apply pixel-card-header bg-pixel-pink text-black; }
@@ -70,15 +126,11 @@
     }
 
     .pixel-dropdown {
-        @apply absolute top-full right-0 mt-6 w-64 bg-[#070b13] border-[6px] border-pixel-blue p-5 z-[999999] shadow-[12px_12px_22px_0px_#000] animate-in slide-in-from-top-4 duration-300;
+        @apply absolute top-full right-0 mt-6 w-64 bg-[#070b13] border-[6px] border-pixel-blue p-5 z-[999999] shadow-[12px_12px_22px_0px_#000];
     }
 
-    .pixel-modal {
-        @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl bg-[#070b13] border-[8px] border-pixel-blue p-8 z-[1000000] shadow-[24px_24px_60px_0px_#000] animate-in zoom-in duration-300;
-    }
-
-    .pixel-backdrop {
-        @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-[999999] animate-in fade-in duration-300;
+    .terminal-input {
+        @apply w-full bg-black border-[4px] border-pixel-matrix/30 p-4 text-white focus:border-pixel-matrix outline-none transition-all shadow-[inset_4px_4px_0_0_rgba(0,0,0,0.5)] font-mono text-sm;
     }
 }
 
@@ -91,4 +143,10 @@
 }
 ::-webkit-scrollbar-thumb {
     @apply bg-pixel-pink border-4 border-[#070b13];
+}
+
+/* Base Keyframes */
+@keyframes zoom-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }

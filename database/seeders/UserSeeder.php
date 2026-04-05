@@ -17,22 +17,22 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Create a Primary Admin Operative
+        // 1. Create a Primary Admin Operative (New User State)
         User::create([
             'name' => 'Admin Test',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
             'level_id' => 1,
-            'total_points' => 2500, // Starts at Level 4/5
+            'total_points' => 0, 
         ]);
 
-        // 2. Create a Test Operative
+        // 2. Create a Test Operative (New User State)
         User::create([
             'name' => 'Havin Test',
             'email' => 'a@a.com',
             'password' => Hash::make('password'),
             'level_id' => 1,
-            'total_points' => 500, // Starts at Level 3
+            'total_points' => 0,
         ]);
 
         // 3. Create Random Operatives for Leaderboard
