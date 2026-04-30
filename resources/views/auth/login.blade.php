@@ -38,7 +38,7 @@
             <div class="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-pixel-matrix"></div>
 
             <div class="text-center mb-10">
-                <div class="inline-block bg-pixel-matrix text-black px-4 py-1 mb-4 font-black italic shadow-[4px_4px_0_0_#00ffff] animate-pulse">SYSTEM_ACCESS_v3</div>
+                <div class="inline-block bg-pixel-matrix text-black px-4 py-1 mb-4 font-black italic shadow-[4px_4px_0_0_#00ffff] animate-pulse">Gamify</div>
                 <h1 class="text-4xl font-heading text-white tracking-widest drop-shadow-[4px_4px_0_#ff00ff] hover:animate-flicker cursor-default">LOGIN</h1>
             </div>
 
